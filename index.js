@@ -1,20 +1,25 @@
 import Express from "express";
+import Products from "./products.js";
 
 const app =Express();
 const port = 3000;
 app.use(Express.json());
 app.use(Express.urlencoded({extended: true}));
 
-//GET, PUT, POST, DELETE
+function mid(req, res, next){
+    console.log(req.query);
+    console.log(req.params);
+}
 
-app.get('/products/:id', (req,res)=>{
+//GET, PUT, POST, DELETE
+app.get('/products/:id' ,(req,res)=>{
     // res.send('Hello World');
     res.json(Products.find((product) =>{
         return +req.params.id===product.id;
     }));
 });
 
-app.post('/add', (req,res)=>{
+app.post('/add', mid, (req,res)=>{
     res.send(req.body);
 });
 
